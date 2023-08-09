@@ -14,6 +14,7 @@ model Maps {
   id          Int           @id @default(autoincrement())
   name        String
   description String?
+  isDefusal   Boolean
   Games       Games[]
   GlobalStats GlobalStats[]
   PlayerStats PlayerStats[]
@@ -23,15 +24,17 @@ model Games {
   id               Int           @id @default(autoincrement())
   Map              Maps          @relation(fields: [mapId], references: [id])
   mapId            Int
-  // Host         Players @relation(fields: [hostId], references: [id])
+  Host             Players       @relation(fields: [hostId], references: [id])
   hostId           Int
   datePlayed       DateTime
   dateCreated      DateTime      @default(now())
   roundsPlayed     Int
+  counterScore     Int
+  terroristScore   Int
   winningTeam      TeamTypes
   validationImgSrc String?
   isApproved       Boolean       @default(false)
-  GamePlayers      GamePlayers[]
+  GamesPlayed      GamesPlayed[]
 }
 
 model Players {
@@ -41,11 +44,12 @@ model Players {
   averageKills   Float         @default(0)
   averageAssists Float         @default(0)
   averageDeaths  Float         @default(0)
-  GamePlayers    GamePlayers[]
+  GamesPlayed    GamesPlayed[]
   PlayerStats    PlayerStats[]
+  GamesHosting   Games[]
 }
 
-model GamePlayers {
+model GamesPlayed {
   id       Int       @id @default(autoincrement())
   Game     Games     @relation(fields: [gameId], references: [id])
   gameId   Int
@@ -56,6 +60,8 @@ model GamePlayers {
   deaths   Int
   score    Int
   team     TeamTypes
+
+  @@map("GamePlayers")
 }
 
 enum TeamTypes {
