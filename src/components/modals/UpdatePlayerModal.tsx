@@ -45,8 +45,12 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, fieldUpdate, refe
       closeModal();
     }
   });
+  // const hasApiError = editName.error || editNickname.error;
+  // const apiErrorMessage = editName.error?.message || editNickname.error?.message;
 
   function onSubmit(data: TForm) {
+    console.log('data: ', data)
+    console.log('field update: ', fieldUpdate)
     if (fieldUpdate.field === 'name') {
       if (editName.isLoading) return;
       editName.mutate({ playerId: fieldUpdate.playerId, name: data.updateValue });
@@ -114,6 +118,11 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, fieldUpdate, refe
                           {errors?.updateValue?.message as string}
                         </p>
                       )}
+                      {/* {hasApiError && (
+                        <p className='text-xs font-normal leading-4 text-orange-500'>
+                          {apiErrorMessage}
+                        </p>
+                      )} */}
                     </div>
 
                     <div className="mt-4 flex gap-x-4">

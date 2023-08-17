@@ -13,9 +13,9 @@ export default function PlayersPage() {
   const [valueToEdit, setValueToEdit] = useState<TValueUpdate | {}>({});
   const { data: players, refetch: refetchPlayers, isLoading: isLoadingPlayers } = api.players.getAll.useQuery();
 
-  function openModal({ field, value }: TValueUpdate) {
+  function openModal({ playerId, field, value }: TValueUpdate) {
     setIsModalOpen(true);
-    setValueToEdit({ field, value });
+    setValueToEdit({ playerId, field, value });
   }
   function closeModal() {
     setIsModalOpen(false);
