@@ -49,8 +49,6 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, fieldUpdate, refe
   // const apiErrorMessage = editName.error?.message || editNickname.error?.message;
 
   function onSubmit(data: TForm) {
-    console.log('data: ', data)
-    console.log('field update: ', fieldUpdate)
     if (fieldUpdate.field === 'name') {
       if (editName.isLoading) return;
       editName.mutate({ playerId: fieldUpdate.playerId, name: data.updateValue });
