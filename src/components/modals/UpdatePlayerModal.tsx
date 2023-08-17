@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TValueUpdate } from '~/pages/players';
+import { api } from '~/utils/api';
 
 interface IProps {
   isOpen: boolean;
   closeModal: () => void;
-  field: TValueUpdate;
+  fieldUpdate: TValueUpdate;
+  refetchPlayers: () => void;
 }
 const schema = z.object({
   updateValue: z.string()
@@ -18,7 +20,7 @@ const schema = z.object({
 
 type TForm = z.infer<typeof schema>;
 
-export default function UpdatePlayerInfo({ isOpen, closeModal, field }: IProps) {
+export default function UpdatePlayerInfo({ isOpen, closeModal, fieldUpdate, refetchPlayers }: IProps) {
   const {
     register,
     handleSubmit,
@@ -28,9 +30,31 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, field }: IProps) 
     resolver: zodResolver(schema),
   });
 
+  const editName = api.players.editName.useMutation({
+    onSuccess: () => {
+      refetchPlayers();
+      reset();
+      closeModal();
+    }
+  });
+
+  const editNickname = api.players.editNickname.useMutation({
+    onSuccess: () => {
+      refetchPlayers();
+      reset();
+      closeModal();
+    }
+  });
+
   function onSubmit(data: TForm) {
-    console.log(data); // data = {updateValue: 'new value'}
-    // reset();
+    if (fieldUpdate.field === 'name') {
+      if (editName.isLoading) return;
+      editName.mutate({ playerId: fieldUpdate.playerId, name: data.updateValue });
+    }
+    if (fieldUpdate.field === 'nickname') {
+      if (editNickname.isLoading) return;
+      editNickname.mutate({ playerId: fieldUpdate.playerId, nickname: data.updateValue });
+    }
   }
 
   function closeAndReset() {
@@ -70,7 +94,7 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, field }: IProps) 
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Update {field.field}
+                    Update {fieldUpdate.field}
                   </Dialog.Title>
                   <form
                     action="submit"
@@ -82,7 +106,7 @@ export default function UpdatePlayerInfo({ isOpen, closeModal, field }: IProps) 
                         type='text'
                         inputMode='text'
                         className={`placeholder-gray-700 block py-2 px-4 w-full mt-1 text-sm font-normal leading-5 text-gray-700 border focus:gold-focus-ring ${errors?.updateValue ? 'border-orange-600 rounded-sm' : 'border-primary'}`}
-                        placeholder={field.value}
+                        placeholder={fieldUpdate.value}
                         {...register('updateValue')}
                       />
                       {errors?.updateValue && (

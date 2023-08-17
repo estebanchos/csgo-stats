@@ -3,6 +3,7 @@ import UpdatePlayerInfo from "~/components/modals/UpdatePlayerModal";
 import { api } from "~/utils/api";
 
 export type TValueUpdate = {
+  playerId: number;
   value: string;
   field: 'name' | 'nickname';
 }
@@ -30,13 +31,13 @@ export default function PlayersPage() {
             <li key={player.id} className="grid grid-cols-4 gap-4">
               <span
                 className="col-span-2"
-                onClick={() => openModal({ field: 'nickname', value: player.nickname })}
+                onClick={() => openModal({ playerId: player.id, field: 'nickname', value: player.nickname })}
               >
                 {player.nickname}
               </span>
               <span
                 className="col-span-2"
-                onClick={() => openModal({ field: 'name', value: player.name })}
+                onClick={() => openModal({ playerId: player.id, field: 'name', value: player.name })}
               >
                 {player.name}
               </span>
@@ -47,7 +48,8 @@ export default function PlayersPage() {
       <UpdatePlayerInfo
         isOpen={isModalOpen}
         closeModal={closeModal}
-        field={valueToEdit as TValueUpdate}
+        fieldUpdate={valueToEdit as TValueUpdate}
+        refetchPlayers={refetchPlayers}
       />
     </main>
   )
