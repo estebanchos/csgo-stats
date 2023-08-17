@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useState } from "react";
+import StatCard from "~/components/stats/StatCard";
 import { RouterOutputs, api } from "~/utils/api";
 
 type TPlayer = RouterOutputs["players"]['getById']
@@ -18,12 +19,6 @@ export default function Home() {
       setNickname("");
     }
   });
-
-  const deletePlayer = api.players.delete.useMutation({
-    onSuccess: () => {
-      refetchPlayers();
-    }
-  })
 
   return (
     <>
@@ -66,15 +61,22 @@ export default function Home() {
               <li
                 className="px-4 py-2"
                 key={player.id}
-                onClick={async () => {
-                  if (!session) return;
-                  await deletePlayer.mutateAsync({
-                    playerId: player.id
-                  });
-                  refetchPlayers();
-                }}
               >
                 {player.nickname}
+                <section className="grid grid-cols-3">
+                <StatCard 
+                  name="Kills"
+                  value={10}
+                />
+                <StatCard 
+                  name="Assists"
+                  value={5}
+                />
+                <StatCard 
+                  name="Deaths"
+                  value={8}
+                />
+                </section>
               </li>
             ))
           }
