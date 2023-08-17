@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { MouseEvent, useState } from "react";
 import MapSearchbox from "~/components/inputs/MapsSearchbox";
+import PlayersMultiselect from "~/components/inputs/PlayersMultiselect";
 
 export default function InputPage() {
   const [map, setMap] = useState({});
@@ -50,6 +51,10 @@ export default function InputPage() {
                 Restart
               </button>
             </div>
+          </section>
+          <section>
+            <h3>Players Assignment</h3>
+            <PlayersMultiselect />
           </section>
         </form>
       </main>
