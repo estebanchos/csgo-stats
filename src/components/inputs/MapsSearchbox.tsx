@@ -64,9 +64,11 @@ export default function MapSearchbox({ selected, setSelected, isDisabled = false
                 filteredMaps?.map((map) => (
                   <Combobox.Option
                     key={map.id}
-                    className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'
-                      }`
+                    className={({ selected, active }) =>
+                      `relative cursor-default select-none py-2 pl-10 pr-4 
+                      ${active ? 'bg-teal-600 text-white' : 'text-gray-900'}
+                      ${selected ? 'font-medium bg-teal-100 text-gray-900' : 'font-normal'}
+                      `
                     }
                     value={map}
                   >
@@ -76,7 +78,7 @@ export default function MapSearchbox({ selected, setSelected, isDisabled = false
                           className={`block truncate ${selected ? 'font-medium' : 'font-normal'
                             }`}
                         >
-                          {map.name}
+                          {map.name} - {map.isDefusal ? 'Defusal' : 'Hostage'}
                         </span>
                         {selected ? (
                           <span
