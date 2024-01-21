@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { type MouseEvent, useState } from 'react';
 import MapSearchbox from '~/components/inputs/MapsSearchbox';
@@ -9,6 +10,7 @@ export default function InputPage() {
   const [isMapConfirmed, setIsMapConfirmed] = useState(false);
   const [selectedTerroists, setSelectedTerroists] = useState<[] | typeof players>([]);
   const [selectedCounter, setSelectedCounter] = useState<[] | typeof players>([]);
+  const { data: session } = useSession();
 
   const { data: players, isLoading } = api.players.getAll.useQuery(undefined, {
     refetchOnMount: false,
@@ -23,6 +25,8 @@ export default function InputPage() {
     e.preventDefault();
     setIsMapConfirmed(false);
   }
+
+  if (!session) return <div>Unauthorized. Please Login</div>;
 
   return (
     <>

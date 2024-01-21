@@ -5,7 +5,10 @@ import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 export default function PlayersMultiselect() {
   const [selectedPeople, setSelectedPeople] = useState<[] | typeof players>([]);
-  const { data: players, isLoading } = api.players.getAll.useQuery();
+  const { data: players, isLoading } = api.players.getAll.useQuery(undefined, {
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
 
   const nonSelectedPlayers = players?.filter(
     (player) => !selectedPeople?.some((selected) => selected.id === player.id)

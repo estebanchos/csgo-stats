@@ -15,7 +15,10 @@ export default function PlayersPage() {
     data: players,
     refetch: refetchPlayers,
     isLoading: isLoadingPlayers,
-  } = api.players.getAll.useQuery();
+  } = api.players.getAll.useQuery(undefined, {
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
 
   function openModal({ playerId, field, value }: TValueUpdate) {
     setIsModalOpen(true);

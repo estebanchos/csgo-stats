@@ -13,7 +13,10 @@ export default function Home() {
     data: players,
     refetch: refetchPlayers,
     isLoading: isLoadingPlayers,
-  } = api.players.getAll.useQuery();
+  } = api.players.getAll.useQuery(undefined, {
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
 
   const createPlayer = api.players.create.useMutation({
     onSuccess: () => {
