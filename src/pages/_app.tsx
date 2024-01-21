@@ -6,7 +6,10 @@ import '~/styles/globals.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AppLayout from '~/components/layout/AppLayout';
 
-const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
     <>
       <SessionProvider session={session}>

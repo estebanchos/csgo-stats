@@ -19,7 +19,10 @@ export default function MapSearchbox({ selected, setSelected, isDisabled = false
     query === ''
       ? maps
       : maps?.filter((map) =>
-          map.name.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))
+          map.name
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, ''))
         );
 
   if (isLoading) return <span>...</span>;
@@ -46,7 +49,9 @@ export default function MapSearchbox({ selected, setSelected, isDisabled = false
         >
           <Combobox.Options className='absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
             {filteredMaps?.length === 0 && query !== '' ? (
-              <div className='relative cursor-default select-none px-4 py-2 text-gray-700'>Nothing found.</div>
+              <div className='relative cursor-default select-none px-4 py-2 text-gray-700'>
+                Nothing found.
+              </div>
             ) : (
               filteredMaps?.map((map) => (
                 <Combobox.Option
@@ -61,7 +66,9 @@ export default function MapSearchbox({ selected, setSelected, isDisabled = false
                 >
                   {({ selected, active }) => (
                     <>
-                      <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                      <span
+                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
+                      >
                         {map.name} - {map.isDefusal ? 'Defusal' : 'Hostage'}
                       </span>
                       {selected ? (

@@ -21,7 +21,12 @@ const schema = z.object({
 
 type TForm = z.infer<typeof schema>;
 
-export default function UpdatePlayerInfo({ isOpen, closeModal, fieldUpdate, refetchPlayers }: IProps) {
+export default function UpdatePlayerInfo({
+  isOpen,
+  closeModal,
+  fieldUpdate,
+  refetchPlayers,
+}: IProps) {
   const {
     register,
     handleSubmit,

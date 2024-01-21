@@ -9,7 +9,11 @@ export default function Home() {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const { data: session } = useSession();
-  const { data: players, refetch: refetchPlayers, isLoading: isLoadingPlayers } = api.players.getAll.useQuery();
+  const {
+    data: players,
+    refetch: refetchPlayers,
+    isLoading: isLoadingPlayers,
+  } = api.players.getAll.useQuery();
 
   const createPlayer = api.players.create.useMutation({
     onSuccess: () => {

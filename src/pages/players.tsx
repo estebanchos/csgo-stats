@@ -11,7 +11,11 @@ export type TValueUpdate = {
 export default function PlayersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [valueToEdit, setValueToEdit] = useState<TValueUpdate | {}>({});
-  const { data: players, refetch: refetchPlayers, isLoading: isLoadingPlayers } = api.players.getAll.useQuery();
+  const {
+    data: players,
+    refetch: refetchPlayers,
+    isLoading: isLoadingPlayers,
+  } = api.players.getAll.useQuery();
 
   function openModal({ playerId, field, value }: TValueUpdate) {
     setIsModalOpen(true);

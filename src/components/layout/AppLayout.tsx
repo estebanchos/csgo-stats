@@ -18,17 +18,26 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               Add a match
             </Link>
             <div className='flex gap-4'>
-              <Link className={!isCurrentRoute('/', router) ? 'nav-link' : 'nav-link__active'} href='/'>
+              <Link
+                className={!isCurrentRoute('/', router) ? 'nav-link' : 'nav-link__active'}
+                href='/'
+              >
                 Home
               </Link>
-              <Link className={!isCurrentRoute('/players', router) ? 'nav-link' : 'nav-link__active'} href='/players'>
+              <Link
+                className={!isCurrentRoute('/players', router) ? 'nav-link' : 'nav-link__active'}
+                href='/players'
+              >
                 Players
               </Link>
             </div>
           </nav>
           <div className='ml-6 flex gap-4'>
             {session && <p className='flex items-center font-medium'>{session.user?.name}</p>}
-            <button className='w-fit rounded-md border px-4 py-2' onClick={() => (!session ? signIn() : signOut())}>
+            <button
+              className='w-fit rounded-md border px-4 py-2'
+              onClick={() => (!session ? signIn() : signOut())}
+            >
               {!session ? 'Login' : 'Logout'}
             </button>
           </div>
