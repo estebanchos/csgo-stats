@@ -1,40 +1,43 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { isCurrentRoute } from "~/lib/client";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const { data: session } = useSession();
 
+  const router = useRouter();
+
   return (
-    <>
+    <div className="bg-gray-800 text-white">
       <header className="flex justify-center items-center flex-col">
         <div className="flex justify-between w-full px-8 py-4">
-          <nav className="flex gap-4">
+          <nav className="flex gap-12">
             <Link
-              className="border rounded-md px-4 py-2"
-              href="/"
-            >
-              Home
-            </Link>
-            <Link
-              className="border rounded-md px-4 py-2"
-              href="/players"
-            >
-              Players
-            </Link>
-            <Link
-              className="border rounded-md px-4 py-2"
+              className="nav-button"
               href="/input"
             >
               Add a match
             </Link>
+            <div className="flex gap-4">
+              <Link
+                className={!isCurrentRoute('/', router) ? "nav-link" : 'nav-link__active'}
+                href="/"
+              >
+                Home
+              </Link>
+              <Link
+                className={!isCurrentRoute('/players', router) ? "nav-link" : 'nav-link__active'}
+                href="/players"
+              >
+                Players
+              </Link>
+            </div>
           </nav>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 ml-6">
             {session && (
-              <div>
-                <span className="italic">Logged in as </span>
-                <span className="font-medium">{session.user?.name}</span>
-              </div>
+              <p className="flex items-center font-medium">{session.user?.name}</p>
             )}
             <button
               className="border rounded-md px-4 py-2 w-fit"
@@ -49,6 +52,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <main className="flex min-h-screen flex-col items-center justify-center">
         {children}
       </main>
-    </>
+    </div>
   )
 }
