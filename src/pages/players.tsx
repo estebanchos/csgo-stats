@@ -1,12 +1,12 @@
-import { useState } from "react";
-import UpdatePlayerInfo from "~/components/modals/UpdatePlayerModal";
-import { api } from "~/utils/api";
+import { useState } from 'react';
+import UpdatePlayerInfo from '~/components/modals/UpdatePlayerModal';
+import { api } from '~/utils/api';
 
 export type TValueUpdate = {
   playerId: number;
   value: string;
   field: 'name' | 'nickname';
-}
+};
 
 export default function PlayersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,28 +22,41 @@ export default function PlayersPage() {
   }
 
   return (
-    <main className="flex flex-col justify-center items-center">
+    <main className='flex flex-col items-center justify-center'>
       <h1>Players</h1>
-      <ul className="grid grid-cols-1 gap-2 w-96 m-auto">
-        {isLoadingPlayers
-          ? <span>...</span>
-          : players?.map((player) => (
-            <li key={player.id} className="grid grid-cols-4 gap-4">
+      <ul className='m-auto grid w-96 grid-cols-1 gap-2'>
+        {isLoadingPlayers ? (
+          <span>...</span>
+        ) : (
+          players?.map((player) => (
+            <li key={player.id} className='grid grid-cols-4 gap-4'>
               <span
-                className="col-span-2"
-                onClick={() => openModal({ playerId: player.id, field: 'nickname', value: player.nickname })}
+                className='col-span-2'
+                onClick={() =>
+                  openModal({
+                    playerId: player.id,
+                    field: 'nickname',
+                    value: player.nickname,
+                  })
+                }
               >
                 {player.nickname}
               </span>
               <span
-                className="col-span-2"
-                onClick={() => openModal({ playerId: player.id, field: 'name', value: player.name })}
+                className='col-span-2'
+                onClick={() =>
+                  openModal({
+                    playerId: player.id,
+                    field: 'name',
+                    value: player.name,
+                  })
+                }
               >
                 {player.name}
               </span>
             </li>
-          )
-          )}
+          ))
+        )}
       </ul>
       <UpdatePlayerInfo
         isOpen={isModalOpen}
@@ -52,5 +65,5 @@ export default function PlayersPage() {
         refetchPlayers={refetchPlayers}
       />
     </main>
-  )
+  );
 }
