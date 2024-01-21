@@ -7,12 +7,8 @@ import { api } from '~/utils/api';
 export default function InputPage() {
   const [selectedMap, setSelectedMap] = useState({});
   const [isMapConfirmed, setIsMapConfirmed] = useState(false);
-  const [selectedTerroists, setSelectedTerroists] = useState<
-    [] | typeof players
-  >([]);
-  const [selectedCounter, setSelectedCounter] = useState<[] | typeof players>(
-    []
-  );
+  const [selectedTerroists, setSelectedTerroists] = useState<[] | typeof players>([]);
+  const [selectedCounter, setSelectedCounter] = useState<[] | typeof players>([]);
 
   const { data: players, isLoading } = api.players.getAll.useQuery(undefined, {
     refetchOnMount: false,
@@ -58,9 +54,7 @@ export default function InputPage() {
                 type='button'
                 className={`inline-flex w-full justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                 onClick={(e) => confirmMap(e)}
-                disabled={
-                  Object.keys(selectedMap).length === 0 || isMapConfirmed
-                }
+                disabled={Object.keys(selectedMap).length === 0 || isMapConfirmed}
               >
                 Confirm Map
               </button>
