@@ -2,14 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-focus {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-transparent  focus-visible:ring-offset-2;
+}
+
+.custom-disabled {
+  @apply disabled:cursor-not-allowed disabled:opacity-50
+}
+
 .nav-button {
-  @apply flex items-center justify-between rounded-md border border-cyan-500 bg-cyan-500 px-4 py-2 hover:border-white hover:bg-transparent;
+  @apply flex items-center justify-between rounded-md border border-cyan-500 bg-cyan-500 px-4 py-2 hover:border-white hover:bg-transparent custom-focus;
 }
 
 .nav-link {
-  @apply px-4 py-2 font-medium text-white hover:border-b-2 hover:border-cyan-500;
+  @apply px-4 py-2 font-medium text-white hover:border-b-2 hover:border-cyan-500 custom-focus;
 }
 
 .nav-link__active {
-  @apply border-b-2 border-white px-4 py-2 font-semibold;
+  @apply border-b-2 border-white px-4 py-2 font-semibold custom-focus;
 }
+
+.main-cta {
+  @apply flex text-white font-medium w-full items-center justify-center rounded-md border border-cyan-500 bg-cyan-500 px-4 py-2 hover:border-white custom-disabled custom-focus;
+}
+
+.cancel-cta {
+  @apply flex w-full text-gray-800 font-medium items-center justify-center rounded-md border border-gray-500 bg-gray-400 px-4 py-2 hover:border-white custom-disabled custom-focus;
+}
+

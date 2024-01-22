@@ -14,7 +14,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <header className='flex flex-col items-center justify-center'>
         <div className='flex w-full justify-between px-8 py-4'>
           <nav className='flex gap-12'>
-            <Link className='nav-button' href='/input'>
+            <Link className='nav-button' href='/new-game'>
               Add a match
             </Link>
             <div className='flex gap-4'>
